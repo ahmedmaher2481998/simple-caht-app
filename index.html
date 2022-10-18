@@ -29,8 +29,9 @@
 				margin: 0;
 				padding: 0;
 			}
-			#messages > li {
+			#messages li {
 				padding: 0.5rem 1rem;
+				margin-top: 0.25rem;
 			}
 			#messages > li:nth-child(odd) {
 				background: #efefef;
@@ -49,16 +50,17 @@
 
 		<script>
 			let socket = io();
-			var form = document.getElementById("form");
-			var input = document.getElementById("input");
+			var form = document.querySelector("form");
+			var input = document.querySelector("input");
 			let container = document.querySelector("#messages");
 			form.addEventListener("submit", (e) => {
 				e.preventDefault();
+				console.log(e);
 				socket.emit("coming-msg", input.value);
 				input.value = "";
 			});
 			socket.on("msg", (d) => {
-				container.innerHTML = +`<li>${d} </li>`;
+				container.innerHTML += `<li>${d} </li>`;
 			});
 		</script>
 	</body>
